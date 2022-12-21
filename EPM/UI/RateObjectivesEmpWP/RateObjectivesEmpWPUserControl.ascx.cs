@@ -189,10 +189,22 @@ namespace EPM.UI.RateObjectivesEmpWP
 
                        #endregion Check for Emp to use (QueryString or current logged-in user)
 
+                       if (Request.QueryString["mode"] != null && Request.QueryString["mode"] == "sm")
+                       {
+                           btnHRApprove.Visible = false;
+                           btnSubmit.Visible = true;
+                           btnRedirectToHD.Visible = true;
+                           btnSendToDm.Visible = false;
+                           ReadOnly_Mode = true;
+                       }
+
+
                        if (Request.QueryString["mode"] != null  && Request.QueryString["mode"] =="hr")
                        {
                            btnHRApprove.Visible = true;
                            btnSubmit.Visible = false;
+                           btnRedirectToHD.Visible = false;
+                           btnSendToDm.Visible = false;
                        }
 
                        if (!IsPostBack)
@@ -214,9 +226,10 @@ namespace EPM.UI.RateObjectivesEmpWP
                     string st = tblObjectives.Rows[0]["Status"].ToString().Trim().ToLower();
                            string p1 = WF_States.Objectives_ProgressSet_by_Emp.ToString().Trim().ToLower();
                            string p2 = WF_States.ObjsAndSkills_Rated.ToString().Trim().ToLower();
-                           string p3 = WF_States.ApprovedBy_HRCommittee.ToString().Trim().ToLower();
+                           string p3 = WF_States.ObjsAndSkills_Rated1.ToString().Trim().ToLower();
+                           string p4 = WF_States.ApprovedBy_HRCommittee.ToString().Trim().ToLower();
 
-                           if (st == p1 || st == p2 || st == p3)
+                           if (st == p1 || st == p2 || st == p3 || st == p4)
                            {
                                lblProgressNotSet_Warning.Visible = false;
                            }
@@ -225,7 +238,7 @@ namespace EPM.UI.RateObjectivesEmpWP
                                lblProgressNotSet_Warning.Visible = true;
                            }
 
-                           if (st == p2 || st == p3)
+                           if (st == p2 || st == p3 || st == p4)
                            {
                                ReadOnly_Mode = true;
                            }
@@ -276,7 +289,7 @@ namespace EPM.UI.RateObjectivesEmpWP
             txtNote_RecommendedCourses.Visible = false;
             header1.Visible = false;
             header2.Visible = false;
-            btnSubmit.Visible = false;
+            btnSendToDm.Visible = false;
         }
 
         private void Make_ReadOnly_Mode()
@@ -295,7 +308,7 @@ namespace EPM.UI.RateObjectivesEmpWP
             txtNote1.ReadOnly = true;
             txtNote_ReasonForRating1or5.ReadOnly = true;
             txtNote_RecommendedCourses.ReadOnly = true;
-            btnSubmit.Visible = false;
+            btnSendToDm.Visible = false;
         }
 
         private void getStandardSkills()
@@ -484,7 +497,7 @@ namespace EPM.UI.RateObjectivesEmpWP
                     {
                         if (Page.IsValid)
                         {
-                            SaveToSP();
+                            //   SaveToSP();
                             Show_Success_Message("تم حفظ التقييم بنجاح");
                             WFStatusUpdater.Change_State_to(WF_States.ObjsAndSkills_Rated, strEmpDisplayName, Active_Rate_Goals_Year);
 
@@ -611,6 +624,36 @@ namespace EPM.UI.RateObjectivesEmpWP
             WFStatusUpdater.Change_State_to(WF_States.ApprovedBy_HRCommittee, strEmpDisplayName, Active_Rate_Goals_Year);
             Show_Success_Message("تم إعتماد التقييم بنجاح");
             Emailer.Send_ObjsAndSkills_Rated_Email_to_Emp(intended_Emp, Active_Rate_Goals_Year);
+        }
+
+        protected void btnRedirectToHD_Click(object sender, EventArgs e)
+        {
+            Show_Success_Message("تم حفظ التقييم بنجاح");
+            WFStatusUpdater.Change_State_to(WF_States.Objectives_ProgressSet_by_Emp, strEmpDisplayName, Active_Rate_Goals_Year);
+
+            Emailer.Send_ObjsAndSkills_Rated_Email_to_RejectObjectivesRate(intended_Emp, Active_Rate_Goals_Year);
+        }
+
+        protected void btnSendToDm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SPSecurity.RunWithElevatedPrivileges(delegate ()
+                {
+                    if (Page.IsValid)
+                    {
+                        SaveToSP();
+                        Show_Success_Message("تم حفظ التقييم بنجاح");
+                        WFStatusUpdater.Change_State_to(WF_States.ObjsAndSkills_Rated1, strEmpDisplayName, Active_Rate_Goals_Year);
+
+                        Emailer.Send_ObjsAndSkills_Rated_Email_to_SecondManager(intended_Emp, Active_Rate_Goals_Year);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Send_Exception_Email(ex.Message);
+            }
         }
     }
 }

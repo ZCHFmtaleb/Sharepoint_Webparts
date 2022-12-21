@@ -45,7 +45,7 @@
 			<asp:Label ID="lblEmpDept" runat="server" Text=""></asp:Label>
 		</td>
 	</tr>
-	<%--<tr>
+    <%--<tr>
 		<td>
 			<asp:Label ID="slblEmpRank" runat="server" Text="الدرجة الوظيفية"></asp:Label>
 		</td>
@@ -221,7 +221,9 @@
 
 
 <div class="div_btnSubmit"  style="margin-bottom:30px;">
-<asp:Button ID="btnSubmit" runat="server" Text="إرسال" Font-Size="Large" Height="50px" Width="100px" OnClick="btnSubmit_Click"  />
+<asp:Button ID="btnSubmit" runat="server" Text="إرسال للموارد البشرية" Font-Size="Medium" Height="50px" Width="186px" OnClick="btnSubmit_Click" Font-Bold="True" Visible="False"  />
+    <asp:Button ID="btnSendToDm" runat="server" Font-Size="Medium" Height="49px" OnClick="btnSendToDm_Click"  Text="ارسال للمعتمد الثاني" Width="180px" Font-Bold="True" />
+    <asp:Button ID="btnRedirectToHD" runat="server" Font-Size="Medium" Height="49px" OnClick="btnRedirectToHD_Click" Text="أعادة للمعتمد الاول" Width="167px" Font-Bold="True" Visible="False" />
 <asp:Button ID="btnHRApprove" runat="server" Text="إعتماد لجنة الموارد البشرية" Font-Size="Medium" Height="50px" Width="200px" visible="false" OnClick="btnHRApprove_Click" BackColor="#C1FFC1"  />
 </div>
 

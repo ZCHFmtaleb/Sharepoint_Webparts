@@ -22,8 +22,11 @@ namespace EPM.EL
         [Description("تم وضع نسب إنجاز الأهداف بواسطة الموظف")]
         Objectives_ProgressSet_by_Emp,
 
-        [Description("تم وضع تقييم الأهداف والكفاءات")]
+        [Description("تم وضع تقييم الأهداف والكفاءات من المعتمد الثاني")]
         ObjsAndSkills_Rated,
+
+        [Description("تم وضع تقييم الأهداف والكفاءات من المعتمد الاول")]
+        ObjsAndSkills_Rated1,
 
         [Description("تم اعتماد لجنة الموارد البشرية")]
         ApprovedBy_HRCommittee

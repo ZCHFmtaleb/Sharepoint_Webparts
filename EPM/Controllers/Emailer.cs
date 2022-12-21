@@ -299,5 +299,90 @@ namespace EPM.Controllers
                 SPUtility.SendEmail(SPContext.Current.Web, headers, bodyText.ToString());
             });
         }
+
+
+        public static void Send_ObjsAndSkills_Rated_Email_to_SecondManager(Emp intended_Emp, string Active_Rate_Goals_Year)
+        {
+            SPSecurity.RunWithElevatedPrivileges(delegate ()
+            {
+                string html = File.ReadAllText(layoutsPath + "Send_ObjsAndSkills_Rated_Email_to_SecondManager.html");
+                StringBuilder bodyText = new StringBuilder(html);
+
+                #region If Arabic name not found, use English name
+
+                string n = string.Empty;
+                if (intended_Emp.Emp_ArabicName != null && intended_Emp.Emp_ArabicName != string.Empty)
+                {
+                    n = intended_Emp.Emp_ArabicName;
+                }
+                else
+                {
+                    n = intended_Emp.Emp_DisplayName;
+                }
+
+                #endregion If Arabic name not found, use English name
+
+                bodyText.Replace("#EmpName#", n);
+                bodyText.Replace("#Active_Rate_Goals_Year#", Active_Rate_Goals_Year);
+                string encoded_name = HttpUtility.UrlEncode(intended_Emp.Emp_DisplayName);
+                bodyText.Replace("#Link#", "<a href=" + SPContext.Current.Web.Url + "/Pages/RateObjectivesEmp.aspx?mode=sm&empid=" + encoded_name + "  >" + n + "</a>");
+
+
+                #region Prepare Headers
+           
+
+                StringDictionary headers = new StringDictionary();
+                headers.Add("to", intended_Emp.Dept_Head_email);
+                headers.Add("subject", " تم وضع تقييم الأهداف والكفاءات للموظف/الموظفة  " + n);
+                headers.Add("content-type", "text/html");
+
+                #endregion Prepare Headers
+
+                SPUtility.SendEmail(SPContext.Current.Web, headers, bodyText.ToString());
+            });
+        }
+
+
+
+        public static void Send_ObjsAndSkills_Rated_Email_to_RejectObjectivesRate(Emp intended_Emp, string Active_Rate_Goals_Year)
+        {
+            SPSecurity.RunWithElevatedPrivileges(delegate ()
+            {
+                string html = File.ReadAllText(layoutsPath + "Send_ObjsAndSkills_Rated_Email_to_RejectObjectivesRate.html");
+                StringBuilder bodyText = new StringBuilder(html);
+
+                #region If Arabic name not found, use English name
+
+                string n = string.Empty;
+                if (intended_Emp.Emp_ArabicName != null && intended_Emp.Emp_ArabicName != string.Empty)
+                {
+                    n = intended_Emp.Emp_ArabicName;
+                }
+                else
+                {
+                    n = intended_Emp.Emp_DisplayName;
+                }
+
+                #endregion If Arabic name not found, use English name
+
+                bodyText.Replace("#EmpName#", n);
+                bodyText.Replace("#Active_Rate_Goals_Year#", Active_Rate_Goals_Year);
+                string encoded_name = HttpUtility.UrlEncode(intended_Emp.Emp_DisplayName);
+                bodyText.Replace("#Link#", "<a href=" + SPContext.Current.Web.Url + "/Pages/RateObjectivesEmp.aspx?empid=" + encoded_name + "  >" + n + "</a>");
+
+
+                #region Prepare Headers
+
+
+                StringDictionary headers = new StringDictionary();
+                headers.Add("to", intended_Emp.DM_email);
+                headers.Add("subject", " تم إسترجاع تقييمكم للأهداف والكفاءات من قبل المعتمد الثاني للموظف/الموظفة  " + n);
+                headers.Add("content-type", "text/html");
+
+                #endregion Prepare Headers
+
+                SPUtility.SendEmail(SPContext.Current.Web, headers, bodyText.ToString());
+            });
+        }
     }
 }
