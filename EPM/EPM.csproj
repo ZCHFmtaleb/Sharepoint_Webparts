@@ -1,0 +1,226 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E2C10B67-68AD-487D-B993-C179F0DA57C9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EPM</RootNamespace>
+    <AssemblyName>EPM</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetOfficeVersion>15.0</TargetOfficeVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SandboxedSolution>False</SandboxedSolution>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Server, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Server.UserProfiles, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.SharePoint" />
+    <Reference Include="Microsoft.SharePoint.Client.ServerRuntime" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\Emailer.cs" />
+    <Compile Include="Controllers\WFStatusUpdater.cs" />
+    <Compile Include="DAL\ApproveObjectives_DAL.cs" />
+    <Compile Include="DAL\Dashboard_DAL.cs" />
+    <Compile Include="DAL\Emp_DAL.cs" />
+    <Compile Include="DAL\EnableYear_DAL.cs" />
+    <Compile Include="DAL\SetObjectives_DAL.cs" />
+    <Compile Include="DAL\SetProgress_DAL.cs" />
+    <Compile Include="EL\Emp.cs" />
+    <Compile Include="EL\EvalNotes.cs" />
+    <Compile Include="EL\WF_States.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\ApproveObjectives\ApproveObjectives.cs" />
+    <Compile Include="UI\ApproveObjectives\ApproveObjectivesUserControl.ascx.cs">
+      <DependentUpon>ApproveObjectivesUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\ApproveObjectives\ApproveObjectivesUserControl.ascx.designer.cs">
+      <DependentUpon>ApproveObjectivesUserControl.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dashboard\Dashboard.cs" />
+    <Compile Include="UI\Dashboard\DashboardUserControl.ascx.cs">
+      <DependentUpon>DashboardUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Dashboard\DashboardUserControl.ascx.designer.cs">
+      <DependentUpon>DashboardUserControl.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EnableYear\EnableYear.cs" />
+    <Compile Include="UI\EnableYear\EnableYearUserControl.ascx.cs">
+      <DependentUpon>EnableYearUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\EnableYear\EnableYearUserControl.ascx.designer.cs">
+      <DependentUpon>EnableYearUserControl.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\RateObjectivesEmpWP\RateObjectivesEmpWP.cs" />
+    <Compile Include="UI\RateObjectivesEmpWP\RateObjectivesEmpWPUserControl.ascx.cs">
+      <DependentUpon>RateObjectivesEmpWPUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\RateObjectivesEmpWP\RateObjectivesEmpWPUserControl.ascx.designer.cs">
+      <DependentUpon>RateObjectivesEmpWPUserControl.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SelectEmpForGoalsApproval\SelectEmpForGoalsApproval.cs" />
+    <Compile Include="UI\SelectEmpForGoalsApproval\SelectEmpForGoalsApprovalUserControl.ascx.cs">
+      <DependentUpon>SelectEmpForGoalsApprovalUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\SelectEmpForGoalsApproval\SelectEmpForGoalsApprovalUserControl.ascx.designer.cs">
+      <DependentUpon>SelectEmpForGoalsApprovalUserControl.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SelectEmp\SelectEmp.cs" />
+    <Compile Include="UI\SelectEmp\SelectEmpUserControl.ascx.cs">
+      <DependentUpon>SelectEmpUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\SelectEmp\SelectEmpUserControl.ascx.designer.cs">
+      <DependentUpon>SelectEmpUserControl.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SetObjectivesWP\SetObjectivesWP.cs" />
+    <Compile Include="UI\SetObjectivesWP\SetObjectivesWPUserControl.ascx.cs">
+      <DependentUpon>SetObjectivesWPUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\SetObjectivesWP\SetObjectivesWPUserControl.ascx.designer.cs">
+      <DependentUpon>SetObjectivesWPUserControl.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SetProgress\SetProgress.cs" />
+    <Compile Include="UI\SetProgress\SetProgressUserControl.ascx.cs">
+      <DependentUpon>SetProgressUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\SetProgress\SetProgressUserControl.ascx.designer.cs">
+      <DependentUpon>SetProgressUserControl.ascx.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Features\Feature1\Feature1.feature">
+      <FeatureId>{1df282d8-a6a7-4f40-9ac1-ff51c06be0ec}</FeatureId>
+    </None>
+    <None Include="Features\Feature2\Feature2.feature">
+      <FeatureId>{234df0d5-e01a-417c-adc5-d944a3c004e4}</FeatureId>
+    </None>
+    <None Include="key.snk" />
+    <None Include="Layouts\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{0327329c-22ac-40cb-9707-b975b9d40039}</SharePointProjectItemId>
+    </None>
+    <None Include="Package\Package.package">
+      <PackageId>{abafaf26-da05-4343-9557-13e5733ec455}</PackageId>
+    </None>
+    <None Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </None>
+    <None Include="UI\ApproveObjectives\ApproveObjectives.webpart" />
+    <None Include="UI\ApproveObjectives\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{3af2b51d-9d88-41a0-9de3-e81842566224}</SharePointProjectItemId>
+    </None>
+    <None Include="UI\Dashboard\Dashboard.webpart" />
+    <None Include="UI\Dashboard\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{25748ce7-d098-4f04-85c9-f6afd87dce99}</SharePointProjectItemId>
+    </None>
+    <None Include="UI\EnableYear\EnableYear.webpart" />
+    <None Include="UI\EnableYear\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{c2e300fc-a35e-4812-a7ce-aaec13717e19}</SharePointProjectItemId>
+    </None>
+    <None Include="UI\RateObjectivesEmpWP\RateObjectivesEmpWP.webpart" />
+    <None Include="UI\RateObjectivesEmpWP\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{d198cc73-fa2e-452e-b1f1-2dd31e755872}</SharePointProjectItemId>
+    </None>
+    <None Include="UI\SelectEmpForGoalsApproval\SelectEmpForGoalsApproval.webpart" />
+    <None Include="UI\SelectEmpForGoalsApproval\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{5227b1b5-6c01-4e0e-b0a8-3b7a6a83e08c}</SharePointProjectItemId>
+    </None>
+    <None Include="UI\SelectEmp\SelectEmp.webpart" />
+    <None Include="UI\SelectEmp\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{822d504f-02ff-430e-b453-a89fe17f3943}</SharePointProjectItemId>
+    </None>
+    <None Include="UI\SetObjectivesWP\SetObjectivesWP.webpart" />
+    <None Include="UI\SetObjectivesWP\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{86b1c455-24a7-4556-a6e3-e3b62c820dd9}</SharePointProjectItemId>
+    </None>
+    <None Include="UI\SetProgress\SetProgress.webpart" />
+    <None Include="UI\SetProgress\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{3df949bd-13b8-4acc-b112-384eb83c805f}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Features\Feature1\Feature1.Template.xml">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </Content>
+    <Content Include="Features\Feature2\Feature2.Template.xml">
+      <DependentUpon>Feature2.feature</DependentUpon>
+    </Content>
+    <Content Include="Layouts\EPM\EPMStyle.css" />
+    <Content Include="Layouts\EPM\Notify_Emp_that_Objs_finally_approved.html" />
+    <Content Include="Layouts\EPM\SelectEmpForGoalsApproval.css" />
+    <Content Include="Layouts\EPM\Send_ObjsAndSkills_Rated_Email_to_Emp.html" />
+    <Content Include="Layouts\EPM\Send_ObjsAndSkills_Rated_Email_to_HRCommittee.html" />
+    <Content Include="Layouts\EPM\Send_Objs_Added_Email_to_DM.html" />
+    <Content Include="Layouts\EPM\Send_Objs_Approved_Email_to_Dept_Head.html" />
+    <Content Include="Layouts\EPM\Send_Objs_ProgressSetByEmp_Email_to_DM.html" />
+    <Content Include="Layouts\EPM\Send_Rej_Email_to_Emp.html" />
+    <Content Include="Layouts\EPM\SetObjectives.js" />
+    <Content Include="Layouts\EPM\spinner.gif" />
+    <Content Include="UI\ApproveObjectives\ApproveObjectivesUserControl.ascx" />
+    <Content Include="UI\ApproveObjectives\Elements.xml" />
+    <Content Include="UI\Dashboard\DashboardUserControl.ascx" />
+    <Content Include="UI\Dashboard\Elements.xml" />
+    <Content Include="UI\EnableYear\Elements.xml" />
+    <Content Include="UI\EnableYear\EnableYearUserControl.ascx" />
+    <Content Include="UI\RateObjectivesEmpWP\Elements.xml" />
+    <Content Include="UI\RateObjectivesEmpWP\RateObjectivesEmpWPUserControl.ascx" />
+    <Content Include="UI\SelectEmpForGoalsApproval\Elements.xml" />
+    <Content Include="UI\SelectEmpForGoalsApproval\SelectEmpForGoalsApprovalUserControl.ascx" />
+    <Content Include="UI\SelectEmp\Elements.xml" />
+    <Content Include="UI\SelectEmp\SelectEmpUserControl.ascx" />
+    <Content Include="UI\SetObjectivesWP\Elements.xml" />
+    <Content Include="UI\SetObjectivesWP\SetObjectivesWPUserControl.ascx" />
+    <Content Include="UI\SetProgress\Elements.xml" />
+    <Content Include="UI\SetProgress\SetProgressUserControl.ascx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>
